@@ -1,0 +1,101 @@
+package algo;
+
+public class Demarrage {
+	
+	public static void main(String[] args) {		
+		
+		String text = "1111a1aaa1bbbbb11aPhg";
+		sommeDuString(text);
+
+		System.out.println(ordemAlphabetique("toto", "tata"));
+
+	}
+
+	public static int sommeDuString(String s){
+
+		int sum = 0;
+		int aCount = 0;
+		int charG = 0;
+		int aChainMaxCount = 0;
+		int aChainCurrCount = 0;
+		char charPrev = 0;
+		int charChainCurr = 0;
+		int charChainMax = 0;
+		int nbMinis = 0;
+		String newString = "";
+
+		for (int i = 0;i < s.length() ;i++ ) {  // Get Sum of the numbers in the string
+			if (Character.getNumericValue(s.charAt(i))<=9) {
+				sum += Character.getNumericValue(s.charAt(i));
+			}
+
+			if (s.charAt(i) == 'a') { // Sum nb 'a'
+				aCount++;	
+			}
+
+			if (s.charAt(i)>charG) { // get larger char
+				charG = s.charAt(i);
+			}
+			
+			if (s.charAt(i) == 'a'){ // get chain de a
+					aChainCurrCount++;
+					if (aChainMaxCount<aChainCurrCount) {
+						aChainMaxCount = aChainCurrCount;
+					}
+			}else{
+				aChainCurrCount = 0;
+			}
+
+			if (s.charAt(i) == charPrev){ // get chain de char
+				charChainCurr++;
+				if (charChainMax<charChainCurr) {
+					charChainMax = charChainCurr;
+				}
+			}else{
+				charChainCurr = 1;
+			}
+			charPrev = s.charAt(i);
+			
+			
+
+			if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z'){ // count lower case
+				nbMinis++;
+			}
+			
+
+			if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z'){ // create a new String only  with  lower case
+				char newChar = s.charAt(i);
+				newString += newChar;
+			}
+
+			if (i%2!=0){ // create a new String witt the odd chars
+				char newChar = s.charAt(i);
+				newString += newChar;
+			}
+		}
+
+		
+
+		System.out.println("sum of all numbers:"+sum);
+		System.out.println("nb de a: "+aCount);
+		System.out.println("char + : "+ charG); 
+		System.out.println("Chain d a: "+aChainMaxCount);
+		System.out.println("Chain d char:"+charChainMax);
+		System.out.println("nb de Miniscule :"+nbMinis);
+		System.out.println("new string :"+newString);
+		return sum;
+	
+	}
+
+	public static String ordemAlphabetique(String s01, String s02){
+		for (int i=0;i<s01.length();i++ ) {
+			if(s01.charAt(i) < s02.charAt(i)){
+				return s01;
+			}else if (s01.charAt(i) > s02.charAt(i)){
+				return s02;
+			}
+		}
+		return s01;
+	}
+
+}
